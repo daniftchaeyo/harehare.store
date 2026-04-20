@@ -3,44 +3,135 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HARE HARE STREET</title>
+<title>HARE HARE</title>
+
 <style>
-body {margin:0;font-family:Arial;background:#0b0b0b;color:#fff;}
-.nav{display:flex;justify-content:space-between;padding:20px;border-bottom:1px solid #222;}
-.logo{font-weight:900;letter-spacing:3px;}
-.hero{height:90vh;background:url('https://images.unsplash.com/photo-1523398002811-999ca8dec234?q=80&w=1200') center/cover;display:flex;align-items:center;padding:40px;}
-.hero h1{font-size:60px;max-width:500px;}
-.btn{background:#fff;color:#000;padding:12px 20px;border:none;cursor:pointer;margin-top:20px;}
-.section{padding:40px;}
-.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
-.card{background:#111;border:1px solid #222;padding:10px;}
-.card img{width:100%;}
-.price{font-weight:bold;}
-footer{padding:30px;border-top:1px solid #222;text-align:center;color:#aaa;}
-@media(max-width:800px){.grid{grid-template-columns:1fr 1fr}.hero h1{font-size:40px}}
-  .logo img {
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f8f8f8;
+  color: #111;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 40px;
+  border-bottom: 1px solid #ddd;
+  background: #fff;
+}
+
+.logo img {
   height: 60px;
 }
+
+.hero {
+  height: 85vh;
+  background: url('https://images.unsplash.com/photo-1523398002811-999ca8dec234?q=80&w=1200') center/cover;
+  display: flex;
+  align-items: center;
+  padding: 60px;
+  color: white;
+}
+
+.hero h1 {
+  font-size: 58px;
+  max-width: 500px;
+  line-height: 1.1;
+}
+
+.btn {
+  background: #111;
+  color: #fff;
+  padding: 14px 22px;
+  border: none;
+  cursor: pointer;
+  margin-top: 20px;
+  font-weight: bold;
+  border-radius: 6px;
+}
+
+.section {
+  padding: 60px 40px;
+}
+
+.section h2 {
+  margin-bottom: 25px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+}
+
+.card {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.card img {
+  width: 100%;
+  display: block;
+}
+
+.card p {
+  margin: 10px;
+}
+
+.price {
+  font-weight: bold;
+}
+
+footer {
+  padding: 40px;
+  border-top: 1px solid #ddd;
+  text-align: center;
+  color: #555;
+  background: #fff;
+}
+
+@media(max-width:900px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .hero h1 {
+    font-size: 40px;
+  }
+}
+
 </style>
 </head>
+
 <body>
 
 <div class="nav">
 <div class="logo">
-  <img src="logo.png" alt="Hare Hare Logo">
+<img src="logo.png">
 </div>
-<div>Shop · Drops · Street</div>
+<div>SHOP · DROPS · STREET</div>
 </div>
 
 <div class="hero">
 <div>
-<h1>STREETWEAR THAT HITS DIFFERENT</h1>
+<h1>MINIMAL STREETWEAR FOR EVERYDAY FITS</h1>
 <button class="btn">SHOP NOW</button>
 </div>
 </div>
 
 <div class="section">
 <h2>NEW DROP</h2>
+
 <div class="grid">
 
 <div class="card">
@@ -71,9 +162,8 @@ footer{padding:30px;border-top:1px solid #222;text-align:center;color:#aaa;}
 </div>
 
 <footer>
-HARE HARE STREET · 2026
+HARE HARE · STREETWEAR STORE · 2026
 </footer>
 
 </body>
 </html>
-
