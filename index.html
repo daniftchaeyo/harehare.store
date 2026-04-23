@@ -3,110 +3,153 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HARE HARE STREET</title>
+<title>HareHare Streetwear</title>
 <style>
-body { margin:0; font-family: Arial, sans-serif; background:#f8f8f8; color:#111; }
-.nav { display:flex; justify-content:space-between; align-items:center; padding:18px 40px; border-bottom:1px solid #ddd; background:#fff; }
-.logo img { height:60px; }
-.menu-toggle { display:none; cursor:pointer; font-size:24px; }
-.nav-links { display:flex; gap:25px; }
-@media(max-width:768px) { .nav-links { display:none; flex-direction:column; background:#fff; position:absolute; top:60px; right:0; width:200px; border:1px solid #ddd; } .nav-links.active { display:flex; } .menu-toggle { display:block; } }
-.hero { height:85vh; background:url('https://images.unsplash.com/photo-1523398002811-999ca8dec234?q=80&w=1200') center/cover; display:flex; align-items:center; padding:60px; color:#fff; }
-.hero h1 { font-size:58px; max-width:500px; line-height:1.1; }
-.btn { background:#111; color:#fff; padding:14px 22px; border:none; cursor:pointer; margin-top:20px; font-weight:bold; border-radius:6px; }
-.section { padding:60px 40px; }
-.section h2 { margin-bottom:25px; }
-.grid { display:grid; grid-template-columns:repeat(4,1fr); gap:25px; }
-.card { background:#fff; border:1px solid #ddd; border-radius:12px; overflow:hidden; transition:0.3s; position:relative; }
-.card:hover { transform:translateY(-5px); box-shadow:0 10px 25px rgba(0,0,0,0.08); }
-.card img { width:100%; transition:0.3s; }
-.card img:hover { transform:scale(1.05); }
-.card p { margin:10px; }
-.price { font-weight:bold; }
-footer { padding:40px; border-top:1px solid #ddd; text-align:center; color:#555; background:#fff; }
-/* Carrito lateral */
-.cart { position:fixed; top:0; right:-300px; width:300px; height:100%; background:#fff; border-left:1px solid #ddd; box-shadow:-4px 0 10px rgba(0,0,0,0.1); transition:0.3s; padding:20px; overflow-y:auto; z-index:1000; }
-.cart.active { right:0; }
-.cart h3 { margin-top:0; }
-.cart-item { display:flex; justify-content:space-between; margin-bottom:12px; }
-.cart-item button { background:#c00; color:#fff; border:none; border-radius:4px; padding:2px 6px; cursor:pointer; }
-.add-cart { width:100%; margin-top:10px; background:#111; color:#fff; padding:12px; border:none; border-radius:6px; cursor:pointer; }
-/* WhatsApp flotante */
-.whatsapp-btn { position:fixed; bottom:20px; right:20px; background:#25D366; color:#fff; width:60px; height:60px; border-radius:50%; display:grid; place-items:center; font-size:30px; cursor:pointer; z-index:2000; box-shadow:0 4px 8px rgba(0,0,0,0.2); }
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #fff;
+}
+
+/* Botón hamburguesa */
+.hamburger {
+    font-size: 30px;
+    cursor: pointer;
+    padding: 10px;
+}
+
+/* Panel lateral */
+#sidePanel {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.3s;
+    padding-top: 60px;
+}
+
+#sidePanel a {
+    padding: 10px 30px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #fff;
+    display: block;
+    transition: 0.3s;
+}
+
+#sidePanel a:hover {
+    background-color: #575757;
+}
+
+#sidePanel .closeBtn {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    font-size: 30px;
+}
+
+/* Contenedor principal */
+.main-content {
+    padding: 20px;
+}
+
+/* Botón flotante carrito */
+#cartBtn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    font-size: 20px;
+    padding: 15px;
+    border: none;
+    border-radius: 50%;
+    background-color: #00C851;
+    color: #fff;
+    cursor: pointer;
+    z-index: 1001;
+}
+
 </style>
 </head>
 <body>
 
-<div class="nav">
-  <div class="logo"><img src="logo.png" alt="Hare Hare Logo"></div>
-  <div class="menu-toggle">☰</div>
-  <div class="nav-links">
-    <a href="#newdrop">New Drop</a>
-    <a href="#cart" onclick="toggleCart()">Carrito</a>
-  </div>
+<!-- Botón hamburguesa -->
+<span class="hamburger" onclick="openNav()">&#9776;</span>
+
+<!-- Panel lateral -->
+<div id="sidePanel">
+    <a href="javascript:void(0)" class="closeBtn" onclick="closeNav()">&times;</a>
+    <a href="#">Inicio</a>
+    <a href="#">New Drop</a>
+    <a href="#">Hombre</a>
+    <a href="#">Mujer</a>
+    <a href="#">Unisex</a>
+    <a href="#">Ofertas</a>
+    <a href="#">Tallas</a>
+    <a href="#" onclick="openCart()">Carrito</a>
 </div>
 
-<div class="hero">
-  <div>
-    <h1>MINIMAL STREETWEAR FOR EVERYDAY FITS</h1>
-    <button class="btn">SHOP NOW</button>
-  </div>
+<div class="main-content">
+    <h1>HareHare Streetwear</h1>
+    <p>Tu tienda de ropa urbana online.</p>
 </div>
 
-<div class="section" id="newdrop">
-<h2>New Drop</h2>
-<div class="grid">
-  <div class="card">
-    <img src="https://images.unsplash.com/photo-1520975916090-3105956dac38?q=80&w=800">
-    <p>Oversize Hoodie</p>
-    <p class="price">$899</p>
-    <label>Talla: <select class="size"><option>S</option><option>M</option><option>L</option></select></label>
-    <button class="add-cart" onclick="addToCart('Oversize Hoodie',899)">Comprar ahora</button>
-  </div>
-  <div class="card">
-    <img src="https://images.unsplash.com/photo-1544441893-675973e31985?q=80&w=800">
-    <p>Street Jacket</p>
-    <p class="price">$1299</p>
-    <label>Talla: <select class="size"><option>S</option><option>M</option><option>L</option></select></label>
-    <button class="add-cart" onclick="addToCart('Street Jacket',1299)">Comprar ahora</button>
-  </div>
-</div>
-</div>
+<!-- Botón flotante carrito -->
+<button id="cartBtn" onclick="openCart()">🛒</button>
 
-<div class="cart" id="cart">
-<h3>Tu Carrito</h3>
-<div id="cart-items"></div>
-<p>Total: $<span id="cart-total">0</span></p>
-<button onclick="checkout()" class="add-cart">Finalizar compra</button>
+<!-- Carrito simulado -->
+<div id="cartPanel" style="display:none; position:fixed; top:0; right:0; width:300px; height:100%; background:#eee; z-index:1002; padding:20px; overflow-y:auto;">
+    <h2>Carrito</h2>
+    <ul id="cartItems"></ul>
+    <button onclick="checkout()">Checkout</button>
+    <button onclick="closeCart()">Cerrar</button>
 </div>
-
-<div class="whatsapp-btn" onclick="window.open('https://wa.me/5215512345678','_blank')">💬</div>
 
 <script>
-const menuToggle = document.querySelector('.menu-toggle');
-const navLinks = document.querySelector('.nav-links');
-menuToggle.addEventListener('click',()=>{navLinks.classList.toggle('active');});
-
-function toggleCart(){document.getElementById('cart').classList.toggle('active');}
-
-let cartTotal = 0;
-function addToCart(item,price){
-  const cartItems = document.getElementById('cart-items');
-  const div = document.createElement('div');
-  div.classList.add('cart-item');
-  div.innerHTML=`<span>${item} $${price}</span><button onclick='removeFromCart(this,${price})'>X</button>`;
-  cartItems.appendChild(div);
-  cartTotal+=price;
-  document.getElementById('cart-total').textContent=cartTotal;
+function openNav() {
+    document.getElementById("sidePanel").style.width = "250px";
 }
-function removeFromCart(btn,price){
-  btn.parentElement.remove();
-  cartTotal-=price;
-  document.getElementById('cart-total').textContent=cartTotal;
+function closeNav() {
+    document.getElementById("sidePanel").style.width = "0";
 }
-function checkout(){
-  if(cartTotal>0){alert('Gracias por tu compra! Total: $'+cartTotal);cartTotal=0;document.getElementById('cart-items').innerHTML='';document.getElementById('cart-total').textContent='0';toggleCart();}
-  else{alert('Tu carrito está vacío');}
+function openCart() {
+    document.getElementById("cartPanel").style.display = "block";
+}
+function closeCart() {
+    document.getElementById("cartPanel").style.display = "none";
+}
+
+// Simulación de carrito
+let cart = [];
+function addToCart(item) {
+    cart.push(item);
+    updateCart();
+}
+function updateCart() {
+    const list = document.getElementById("cartItems");
+    list.innerHTML = "";
+    cart.forEach((i, index) => {
+        const li = document.createElement("li");
+        li.textContent = i + " ";
+        const removeBtn = document.createElement("button");
+        removeBtn.textContent = "Eliminar";
+        removeBtn.onclick = () => { cart.splice(index, 1); updateCart(); };
+        li.appendChild(removeBtn);
+        list.appendChild(li);
+    });
+}
+function checkout() {
+    if(cart.length > 0) {
+        alert("Total: " + cart.length + " items. Gracias por tu compra!");
+        cart = [];
+        updateCart();
+        closeCart();
+    } else {
+        alert("Tu carrito está vacío.");
+    }
 }
 </script>
 
