@@ -3,155 +3,604 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="HareHare Streetwear – Tu tienda de ropa urbana online. New drops, colecciones hombre, mujer y unisex.">
 <title>HareHare Streetwear</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐇</text></svg>">
 <style>
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #fff;
-}
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-/* Botón hamburguesa */
-.hamburger {
-    font-size: 30px;
-    cursor: pointer;
-    padding: 10px;
-}
+  :root {
+    --black: #0a0a0a;
+    --white: #f5f5f0;
+    --accent: #c8f04a;
+    --gray: #888;
+    --panel-w: 280px;
+  }
 
-/* Panel lateral */
-#sidePanel {
-    height: 100%;
-    width: 0;
-    position: fixed;
-    z-index: 1000;
+  body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background: var(--white);
+    color: var(--black);
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 24px;
+    border-bottom: 1.5px solid var(--black);
+    position: sticky;
     top: 0;
-    left: 0;
-    background-color: #111;
-    overflow-x: hidden;
-    transition: 0.3s;
-    padding-top: 60px;
-}
+    background: var(--white);
+    z-index: 100;
+  }
 
-#sidePanel a {
-    padding: 10px 30px;
-    text-decoration: none;
-    font-size: 18px;
-    color: #fff;
-    display: block;
-    transition: 0.3s;
-}
-
-#sidePanel a:hover {
-    background-color: #575757;
-}
-
-#sidePanel .closeBtn {
-    position: absolute;
-    top: 20px;
-    right: 25px;
-    font-size: 30px;
-}
-
-/* Contenedor principal */
-.main-content {
-    padding: 20px;
-}
-
-/* Botón flotante carrito */
-#cartBtn {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
+  .logo {
     font-size: 20px;
-    padding: 15px;
-    border: none;
-    border-radius: 50%;
-    background-color: #00C851;
-    color: #fff;
-    cursor: pointer;
-    z-index: 1001;
-}
+    font-weight: 900;
+    letter-spacing: -0.5px;
+    text-transform: uppercase;
+  }
 
+  /* ── HAMBURGER ── */
+  #hamburgerBtn {
+    background: none;
+    border: 1.5px solid var(--black);
+    border-radius: 6px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    padding: 0;
+    transition: background 0.15s;
+  }
+  #hamburgerBtn:hover { background: var(--black); }
+  #hamburgerBtn:hover span { background: var(--white); }
+  #hamburgerBtn span {
+    display: block;
+    width: 18px;
+    height: 2px;
+    background: var(--black);
+    border-radius: 2px;
+    transition: background 0.15s;
+  }
+
+  /* ── OVERLAY ── */
+  #overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 200;
+    cursor: pointer;
+  }
+  #overlay.active { display: block; }
+
+  /* ── SIDE PANEL ── */
+  #sidePanel {
+    position: fixed;
+    top: 0; left: 0;
+    height: 100%;
+    width: var(--panel-w);
+    background: var(--black);
+    color: var(--white);
+    z-index: 300;
+    transform: translateX(-100%);
+    transition: transform 0.3s cubic-bezier(.4,0,.2,1);
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    overflow-y: auto;
+  }
+  #sidePanel.open { transform: translateX(0); }
+
+  .panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+    border-bottom: 1px solid #333;
+  }
+  .panel-logo {
+    font-size: 16px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  #closeBtn {
+    background: none;
+    border: none;
+    color: var(--white);
+    font-size: 24px;
+    cursor: pointer;
+    line-height: 1;
+    padding: 4px;
+    opacity: 0.7;
+    transition: opacity 0.15s;
+  }
+  #closeBtn:hover { opacity: 1; }
+
+  #sidePanel nav { padding: 16px 0; flex: 1; }
+  #sidePanel nav a {
+    display: block;
+    padding: 13px 24px;
+    color: var(--white);
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    transition: background 0.15s, color 0.15s;
+  }
+  #sidePanel nav a:hover {
+    background: #1a1a1a;
+    color: var(--accent);
+  }
+
+  /* ── MAIN CONTENT ── */
+  main { padding: 48px 24px 120px; max-width: 900px; margin: 0 auto; }
+
+  .hero h1 {
+    font-size: clamp(40px, 8vw, 80px);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -2px;
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+  .hero h1 span { color: var(--accent); background: var(--black); padding: 0 6px; }
+  .hero p { font-size: 16px; color: var(--gray); margin-bottom: 40px; }
+
+  /* ── PRODUCTOS ── */
+  .section-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-bottom: 20px;
+  }
+
+  .products {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+  }
+
+  .product-card {
+    border: 1.5px solid var(--black);
+    border-radius: 4px;
+    overflow: hidden;
+    transition: transform 0.2s;
+  }
+  .product-card:hover { transform: translateY(-3px); }
+
+  .product-img {
+    width: 100%;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+    background: #e8e8e0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+    color: #ccc;
+  }
+
+  .product-info { padding: 12px 14px; }
+  .product-name { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+  .product-cat { font-size: 11px; color: var(--gray); margin: 2px 0 10px; text-transform: uppercase; letter-spacing: 1px; }
+  .product-price { font-size: 16px; font-weight: 900; }
+
+  .add-btn {
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    background: var(--black);
+    color: var(--white);
+    border: none;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+  }
+  .add-btn:hover { background: var(--accent); color: var(--black); }
+
+  /* ── CART BUTTON ── */
+  #cartBtn {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: 1.5px solid var(--black);
+    background: var(--accent);
+    color: var(--black);
+    font-size: 22px;
+    cursor: pointer;
+    z-index: 150;
+    box-shadow: 3px 3px 0 var(--black);
+    transition: transform 0.15s, box-shadow 0.15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #cartBtn:hover { transform: translate(-2px, -2px); box-shadow: 5px 5px 0 var(--black); }
+  #cartBtn:active { transform: translate(1px, 1px); box-shadow: 1px 1px 0 var(--black); }
+
+  #cartCount {
+    position: absolute;
+    top: -5px; right: -5px;
+    background: var(--black);
+    color: var(--accent);
+    font-size: 11px;
+    font-weight: 700;
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ── CART PANEL ── */
+  #cartPanel {
+    position: fixed;
+    top: 0; right: 0;
+    height: 100%;
+    width: 340px;
+    background: var(--white);
+    border-left: 1.5px solid var(--black);
+    z-index: 300;
+    display: flex;
+    flex-direction: column;
+    transform: translateX(100%);
+    transition: transform 0.3s cubic-bezier(.4,0,.2,1);
+  }
+  #cartPanel.open { transform: translateX(0); }
+
+  .cart-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+    border-bottom: 1.5px solid var(--black);
+  }
+  .cart-header h2 { font-size: 16px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; }
+
+  #closeCartBtn {
+    background: none;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+    color: var(--black);
+    line-height: 1;
+    opacity: 0.6;
+    transition: opacity 0.15s;
+  }
+  #closeCartBtn:hover { opacity: 1; }
+
+  #cartItems {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px 24px;
+    list-style: none;
+  }
+
+  #cartItems li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid #e0e0d8;
+    font-size: 14px;
+    gap: 10px;
+  }
+
+  .cart-item-name { flex: 1; font-weight: 500; }
+  .cart-item-price { font-weight: 700; white-space: nowrap; }
+
+  .remove-btn {
+    background: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 11px;
+    color: var(--gray);
+    cursor: pointer;
+    padding: 3px 7px;
+    transition: border-color 0.15s, color 0.15s;
+  }
+  .remove-btn:hover { border-color: #e24b4a; color: #e24b4a; }
+
+  .cart-empty {
+    text-align: center;
+    color: var(--gray);
+    padding: 40px 0;
+    font-size: 14px;
+  }
+
+  .cart-footer { padding: 20px 24px; border-top: 1.5px solid var(--black); }
+  .cart-total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 14px;
+  }
+
+  #checkoutBtn {
+    width: 100%;
+    padding: 14px;
+    background: var(--black);
+    color: var(--white);
+    border: none;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background 0.15s, color 0.15s;
+  }
+  #checkoutBtn:hover { background: var(--accent); color: var(--black); }
+  #checkoutBtn:disabled { opacity: 0.4; cursor: default; background: var(--black); color: var(--white); }
+
+  /* ── TOAST ── */
+  #toast {
+    position: fixed;
+    bottom: 90px;
+    right: 24px;
+    background: var(--black);
+    color: var(--accent);
+    padding: 10px 18px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    z-index: 400;
+    transform: translateY(20px);
+    opacity: 0;
+    transition: all 0.25s;
+    pointer-events: none;
+  }
+  #toast.show { transform: translateY(0); opacity: 1; }
 </style>
 </head>
 <body>
 
-<!-- Botón hamburguesa -->
-<span class="hamburger" onclick="openNav()">&#9776;</span>
+<!-- OVERLAY (cierra paneles al tocar fuera) -->
+<div id="overlay" aria-hidden="true"></div>
 
-<!-- Panel lateral -->
-<div id="sidePanel">
-    <a href="javascript:void(0)" class="closeBtn" onclick="closeNav()">&times;</a>
+<!-- HEADER -->
+<header>
+  <div class="logo">HareHare 🐇</div>
+  <button id="hamburgerBtn" aria-label="Abrir menú de navegación" aria-expanded="false" aria-controls="sidePanel">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<!-- PANEL LATERAL -->
+<div id="sidePanel" role="navigation" aria-label="Menú principal">
+  <div class="panel-header">
+    <span class="panel-logo">HareHare</span>
+    <button id="closeBtn" aria-label="Cerrar menú">&times;</button>
+  </div>
+  <nav>
     <a href="#">Inicio</a>
     <a href="#">New Drop</a>
     <a href="#">Hombre</a>
     <a href="#">Mujer</a>
     <a href="#">Unisex</a>
     <a href="#">Ofertas</a>
-    <a href="#">Tallas</a>
-    <a href="#" onclick="openCart()">Carrito</a>
+    <a href="#">Guía de tallas</a>
+    <a href="#" id="navCartLink">Carrito (<span id="navCartCount">0</span>)</a>
+  </nav>
 </div>
 
-<div class="main-content">
-    <h1>HareHare Streetwear</h1>
-    <p>Tu tienda de ropa urbana online.</p>
-</div>
+<!-- MAIN -->
+<main>
+  <section class="hero">
+    <h1>Street<br><span>wear</span></h1>
+    <p>Drops exclusivos. Estilo sin filtros.</p>
+  </section>
 
-<!-- Botón flotante carrito -->
-<button id="cartBtn" onclick="openCart()">🛒</button>
+  <p class="section-title">New drop</p>
+  <div class="products" id="productGrid"></div>
+</main>
 
-<!-- Carrito simulado -->
-<div id="cartPanel" style="display:none; position:fixed; top:0; right:0; width:300px; height:100%; background:#eee; z-index:1002; padding:20px; overflow-y:auto;">
+<!-- BOTÓN CARRITO -->
+<button id="cartBtn" aria-label="Ver carrito">
+  🛒
+  <span id="cartCount" aria-live="polite"></span>
+</button>
+
+<!-- PANEL CARRITO -->
+<div id="cartPanel" role="dialog" aria-modal="true" aria-label="Carrito de compras">
+  <div class="cart-header">
     <h2>Carrito</h2>
-    <ul id="cartItems"></ul>
-    <button onclick="checkout()">Checkout</button>
-    <button onclick="closeCart()">Cerrar</button>
+    <button id="closeCartBtn" aria-label="Cerrar carrito">&times;</button>
+  </div>
+  <ul id="cartItems" aria-live="polite"></ul>
+  <div class="cart-footer">
+    <div class="cart-total">
+      <span>Total</span>
+      <span id="cartTotal">$0</span>
+    </div>
+    <button id="checkoutBtn" disabled>Finalizar compra</button>
+  </div>
 </div>
+
+<!-- TOAST -->
+<div id="toast" role="status"></div>
 
 <script>
-function openNav() {
-    document.getElementById("sidePanel").style.width = "250px";
-}
-function closeNav() {
-    document.getElementById("sidePanel").style.width = "0";
-}
-function openCart() {
-    document.getElementById("cartPanel").style.display = "block";
-}
-function closeCart() {
-    document.getElementById("cartPanel").style.display = "none";
-}
+  /* ─── PRODUCTOS ─── */
+  const PRODUCTS = [
+    { id: 1, name: "Hoodie Void", category: "Unisex", price: 850, emoji: "👕" },
+    { id: 2, name: "Cargo Tac", category: "Hombre", price: 690, emoji: "👖" },
+    { id: 3, name: "Crop Haze", category: "Mujer", price: 480, emoji: "👚" },
+    { id: 4, name: "Cap Blank", category: "Unisex", price: 290, emoji: "🧢" },
+    { id: 5, name: "Bomber Dark", category: "Hombre", price: 1200, emoji: "🥻" },
+    { id: 6, name: "Tote Signal", category: "Unisex", price: 220, emoji: "👜" },
+  ];
 
-// Simulación de carrito
-let cart = [];
-function addToCart(item) {
-    cart.push(item);
-    updateCart();
-}
-function updateCart() {
-    const list = document.getElementById("cartItems");
-    list.innerHTML = "";
-    cart.forEach((i, index) => {
-        const li = document.createElement("li");
-        li.textContent = i + " ";
-        const removeBtn = document.createElement("button");
-        removeBtn.textContent = "Eliminar";
-        removeBtn.onclick = () => { cart.splice(index, 1); updateCart(); };
-        li.appendChild(removeBtn);
-        list.appendChild(li);
-    });
-}
-function checkout() {
-    if(cart.length > 0) {
-        alert("Total: " + cart.length + " items. Gracias por tu compra!");
-        cart = [];
-        updateCart();
-        closeCart();
-    } else {
-        alert("Tu carrito está vacío.");
+  function renderProducts() {
+    const grid = document.getElementById("productGrid");
+    grid.innerHTML = PRODUCTS.map(p => `
+      <div class="product-card">
+        <div class="product-img">${p.emoji}</div>
+        <div class="product-info">
+          <div class="product-name">${p.name}</div>
+          <div class="product-cat">${p.category}</div>
+          <div class="product-price">$${p.price}</div>
+          <button class="add-btn" onclick="addToCart(${p.id})">+ Agregar</button>
+        </div>
+      </div>
+    `).join("");
+  }
+
+  /* ─── CARRITO con localStorage ─── */
+  // Cada ítem: { uid, id, name, price }
+  let cart = loadCart();
+
+  function loadCart() {
+    try {
+      return JSON.parse(localStorage.getItem("hh_cart")) || [];
+    } catch { return []; }
+  }
+
+  function saveCart() {
+    try {
+      localStorage.setItem("hh_cart", JSON.stringify(cart));
+    } catch(e) {
+      console.warn("No se pudo guardar el carrito:", e);
     }
-}
-</script>
+  }
 
+  function addToCart(productId) {
+    const p = PRODUCTS.find(x => x.id === productId);
+    if (!p) return;
+    // uid único para evitar bugs al eliminar duplicados
+    cart.push({ uid: Date.now() + Math.random(), id: p.id, name: p.name, price: p.price });
+    saveCart();
+    updateCartUI();
+    showToast(`${p.name} agregado al carrito`);
+  }
+
+  function removeFromCart(uid) {
+    cart = cart.filter(item => item.uid !== uid);
+    saveCart();
+    updateCartUI();
+  }
+
+  function updateCartUI() {
+    const list = document.getElementById("cartItems");
+    const total = cart.reduce((sum, item) => sum + item.price, 0);
+    const count = cart.length;
+
+    // Ítems
+    if (count === 0) {
+      list.innerHTML = '<li><p class="cart-empty">Tu carrito está vacío.</p></li>';
+    } else {
+      list.innerHTML = cart.map(item => `
+        <li>
+          <span class="cart-item-name">${item.name}</span>
+          <span class="cart-item-price">$${item.price}</span>
+          <button class="remove-btn" onclick="removeFromCart(${item.uid})" aria-label="Eliminar ${item.name}">Quitar</button>
+        </li>
+      `).join("");
+    }
+
+    // Total
+    document.getElementById("cartTotal").textContent = `$${total.toLocaleString("es-MX")}`;
+
+    // Botón checkout
+    document.getElementById("checkoutBtn").disabled = count === 0;
+
+    // Badge contador
+    const badge = document.getElementById("cartCount");
+    const navCount = document.getElementById("navCartCount");
+    if (count > 0) {
+      badge.textContent = count;
+      badge.style.display = "flex";
+    } else {
+      badge.style.display = "none";
+    }
+    navCount.textContent = count;
+  }
+
+  function checkout() {
+    if (cart.length === 0) return;
+    const total = cart.reduce((sum, i) => sum + i.price, 0);
+    alert(`¡Gracias por tu compra! 🐇\nTotal: $${total.toLocaleString("es-MX")} MXN\n(${cart.length} artículo${cart.length > 1 ? 's' : ''})`);
+    cart = [];
+    saveCart();
+    updateCartUI();
+    closeCart();
+  }
+
+  /* ─── NAV PANEL ─── */
+  function openNav() {
+    document.getElementById("sidePanel").classList.add("open");
+    document.getElementById("overlay").classList.add("active");
+    document.getElementById("hamburgerBtn").setAttribute("aria-expanded", "true");
+  }
+  function closeNav() {
+    document.getElementById("sidePanel").classList.remove("open");
+    if (!document.getElementById("cartPanel").classList.contains("open")) {
+      document.getElementById("overlay").classList.remove("active");
+    }
+    document.getElementById("hamburgerBtn").setAttribute("aria-expanded", "false");
+  }
+
+  /* ─── CART PANEL ─── */
+  function openCart() {
+    document.getElementById("cartPanel").classList.add("open");
+    document.getElementById("overlay").classList.add("active");
+    closeNav();
+  }
+  function closeCart() {
+    document.getElementById("cartPanel").classList.remove("open");
+    document.getElementById("overlay").classList.remove("active");
+  }
+
+  /* ─── TOAST ─── */
+  let toastTimer;
+  function showToast(msg) {
+    const t = document.getElementById("toast");
+    t.textContent = msg;
+    t.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => t.classList.remove("show"), 2200);
+  }
+
+  /* ─── EVENTOS ─── */
+  document.getElementById("hamburgerBtn").addEventListener("click", openNav);
+  document.getElementById("closeBtn").addEventListener("click", closeNav);
+  document.getElementById("cartBtn").addEventListener("click", openCart);
+  document.getElementById("closeCartBtn").addEventListener("click", closeCart);
+  document.getElementById("checkoutBtn").addEventListener("click", checkout);
+  document.getElementById("navCartLink").addEventListener("click", (e) => { e.preventDefault(); openCart(); });
+  document.getElementById("overlay").addEventListener("click", () => { closeNav(); closeCart(); });
+
+  // Cerrar paneles con Escape
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") { closeNav(); closeCart(); }
+  });
+
+  /* ─── INIT ─── */
+  renderProducts();
+  updateCartUI();
+</script>
 </body>
 </html>
